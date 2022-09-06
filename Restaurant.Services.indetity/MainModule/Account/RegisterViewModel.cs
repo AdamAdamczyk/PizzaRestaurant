@@ -1,7 +1,7 @@
 ﻿using IdentityServerHost.Quickstart.UI;
 using System.ComponentModel.DataAnnotations;
 
-namespace Parmezzan.Services.Identity.MainModule.Account
+namespace Restaurant.Services.Identity.MainModule.Account
 {
     public class RegisterViewModel
     {

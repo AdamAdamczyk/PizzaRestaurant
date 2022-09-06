@@ -18,8 +18,8 @@ using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
 using Duende.IdentityServer.Test;
 using Microsoft.AspNetCore.Identity;
-using Parmezzan.Services.Identity.Models;
-using Parmezzan.Services.Identity.MainModule.Account;
+using Restaurant.Services.Identity.Models;
+using Restaurant.Services.Identity.MainModule.Account;
 using System.Security.Claims;
 
 namespace IdentityServerHost.Quickstart.UI
