@@ -36,15 +36,9 @@ namespace Restaurant.Web.Controllers
             return View();
         }
 
-        [HttpGet]
         public async Task<IActionResult> Checkout()
         {
             return View(await LoadCartDtoBasedOnLoggedUser());
-        }
-
-        public async Task<IActionResult> Confirmation()
-        {
-            return View();
         }
 
         private async Task<CartDto> LoadCartDtoBasedOnLoggedUser()
