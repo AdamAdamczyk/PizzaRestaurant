@@ -3,7 +3,7 @@ using Duende.IdentityServer.Models;
 
 namespace Restaurant.Services.Identity
 {
-    public class SD
+    public static class SD
     {
         public const string Admin = "Admin";
         public const string Customer = "Customer";
@@ -15,13 +15,13 @@ namespace Restaurant.Services.Identity
                 new IdentityResources.Email(),
                 new IdentityResources.Profile()
             };
+
         public static IEnumerable<ApiScope> ApiScopes =>
-            new List<ApiScope> 
-            {
-                new ApiScope("Restaurant", "Restaurant Server"),
-                new ApiScope(name: "read", displayName: "Read"),
-                new ApiScope(name: "write", displayName: "Write"),
-                new ApiScope(name: "delete", displayName : "Delete")
+            new List<ApiScope> {
+                new ApiScope("restaurant", "Restaurant Server"),
+                new ApiScope(name: "read",   displayName: "Read your data."),
+                new ApiScope(name: "write",  displayName: "Write your data."),
+                new ApiScope(name: "delete", displayName: "Delete your data.")
             };
 
         public static IEnumerable<Client> Clients =>
@@ -29,26 +29,26 @@ namespace Restaurant.Services.Identity
             {
                 new Client
                 {
-                    ClientId = "client",
-                    ClientSecrets = { new Secret ("secret".Sha256())},
+                    ClientId="client",
+                    ClientSecrets= { new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    AllowedScopes = { "read", "write", "profile"}
+                    AllowedScopes={ "read", "write","profile"}
                 },
                 new Client
                 {
-                    ClientId = "Restaurant",
-                    ClientSecrets = { new Secret ("secret".Sha256())},
+                    ClientId="restaurant",
+                    ClientSecrets= { new Secret("secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.Code,
-                    RedirectUris = { "http://localhost:44340/signin-oidc" },
-                    PostLogoutRedirectUris = { "http://localhost:44340/signout-callback-oidc"},
-                    AllowedScopes = new List<string>
+                    RedirectUris={ "https://localhost:44340/signin-oidc" },
+                    PostLogoutRedirectUris={"https://localhost:44340/signout-callback-oidc" },
+                    AllowedScopes=new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
-                        "Restaurant"
+                        "restaurant"
                     }
-                }
+                },
             };
     }
 }

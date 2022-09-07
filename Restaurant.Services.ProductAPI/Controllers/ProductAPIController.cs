@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Restaurant.Services.ProductAPI.Models;
 using Restaurant.Services.ProductAPI.Models.Dto;
 using Restaurant.Services.ProductAPI.Repository;
@@ -9,12 +10,12 @@ namespace Restaurant.Services.ProductAPI.Controllers
     public class ProductAPIController : ControllerBase
     {
         protected ResponseDto _response;
-        private IProductRepository _productRepository;
+        private IProductRepository _productRespository;
 
         public ProductAPIController(IProductRepository productRepository)
         {
-            _productRepository = productRepository;
-            this._response = new ResponseDto();
+            _productRespository = productRepository;
+            _response = new ResponseDto();
         }
 
         [HttpGet]
@@ -22,14 +23,16 @@ namespace Restaurant.Services.ProductAPI.Controllers
         {
             try
             {
-                IEnumerable<ProductDto> productDtos = await _productRepository.GetProducts();
-                _response.Result = productDtos;
+                var productsDtos = await _productRespository.GetProducts();
+                _response.Result = productsDtos;
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string>() { ex.ToString()};
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
+
             return _response;
         }
 
@@ -39,65 +42,74 @@ namespace Restaurant.Services.ProductAPI.Controllers
         {
             try
             {
-                ProductDto productDto = await _productRepository.GetProductById(id);
-                _response.Result = productDto;
+                var productsDto = await _productRespository.GetProductById(id);
+                _response.Result = productsDto;
+
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string>() { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
+
             return _response;
         }
 
         [HttpPost]
-        [Route("{id}")]
+        [Authorize]
         public async Task<object> Post([FromBody] ProductDto productDto)
         {
             try
             {
-                ProductDto model = await _productRepository.CreateUpdateProduct(productDto);
-                _response.Result = model;
+                var result = await _productRespository.CreateUpdateProduct(productDto);
+                _response.Result = result;
+
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string>() { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
+
             return _response;
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Authorize]
         public async Task<object> Put([FromBody] ProductDto productDto)
         {
             try
             {
-                ProductDto model = await _productRepository.CreateUpdateProduct(productDto);
-                _response.Result = model;
+                var result = await _productRespository.CreateUpdateProduct(productDto);
+                _response.Result = result;
+
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string>() { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
+
             return _response;
         }
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<object> Delete(int id)
         {
             try
             {
-                bool isSuccess = await _productRepository.DeleteProduct(id);
-                _response.Result = isSuccess;
+                var isSUccess = await _productRespository.DeleteProduct(id);
+                _response.Result = isSUccess;
+
             }
             catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages = new List<string>() { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
+
             return _response;
         }
     }

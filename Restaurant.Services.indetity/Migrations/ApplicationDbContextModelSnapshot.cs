@@ -8,7 +8,7 @@ using Restaurant.Services.Identity.DbContexts;
 
 #nullable disable
 
-namespace Restaurant.Services.indetity.Migrations
+namespace Restaurant.Services.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

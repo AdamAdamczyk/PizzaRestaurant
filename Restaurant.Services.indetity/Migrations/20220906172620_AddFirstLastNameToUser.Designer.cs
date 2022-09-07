@@ -12,8 +12,8 @@ using Restaurant.Services.Identity.DbContexts;
 namespace Restaurant.Services.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220906170032_ConfiguredefaultidentityTables")]
-    partial class ConfiguredefaultidentityTables
+    [Migration("20220906172620_AddFirstLastNameToUser")]
+    partial class AddFirstLastNameToUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

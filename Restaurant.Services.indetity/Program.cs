@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Services.Identity;
 using Restaurant.Services.Identity.DbContexts;
+using Restaurant.Services.Identity.Initializer;
 using Restaurant.Services.Identity.Models;
-
+using Restaurant.Services.Identity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,9 @@ var identityBuilder = builder.Services.AddIdentityServer(options =>
     .AddInMemoryApiScopes(SD.ApiScopes)
     .AddInMemoryClients(SD.Clients)
     .AddAspNetIdentity<ApplicationUser>();
+
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 identityBuilder.AddDeveloperSigningCredential();
 
@@ -48,8 +52,21 @@ app.UseRouting();
 app.UseIdentityServer();
 app.UseAuthorization();
 
+SeedDatabase();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+void SeedDatabase()
+{
+    var context = app.Services.CreateScope().ServiceProvider.GetService<ApplicationDbContext>();
+    var userManager = app.Services.CreateScope().ServiceProvider.GetService<UserManager<ApplicationUser>>();
+    var roleManager = app.Services.CreateScope().ServiceProvider.GetService<RoleManager<IdentityRole>>();
+
+    var dbInitializer = new DbInitializer(context, userManager, roleManager);
+    dbInitializer.Initialize();
+}

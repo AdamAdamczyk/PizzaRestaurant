@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Restaurant.Services.indetity.Migrations
+namespace Restaurant.Services.Identity.Migrations
 {
     public partial class ConfiguredefaultidentityTables : Migration
     {
