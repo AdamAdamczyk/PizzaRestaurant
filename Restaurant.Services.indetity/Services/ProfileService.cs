@@ -50,7 +50,6 @@ namespace Restaurant.Services.Identity.Services
                     }
                 }
             }
-
             context.IssuedClaims = claims;
         }
 
