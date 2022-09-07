@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Restaurant.Services.ProductAPI.Models.Dto;
+using Restaurant.Services.ProductAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Restaurant.Services.ProductAPI.Models.Dto
+namespace Restaurant.Services.ShoppingCartAPI.Models
 {
     public class Product
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductId { get; set; }
         [Required]
         public string Name { get; set; }

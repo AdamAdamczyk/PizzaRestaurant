@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Restaurant.Services.ProductAPI.Models;
 using Restaurant.Services.ProductAPI.Models.Dto;
 using Restaurant.Services.ProductAPI.Repository;
 

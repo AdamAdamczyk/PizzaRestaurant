@@ -1,4 +1,4 @@
-﻿using Restaurant.Services.ProductAPI.Models;
+﻿using Restaurant.Services.ProductAPI.Models.Dto;
 
 namespace Restaurant.Services.ProductAPI.Repository
 {
